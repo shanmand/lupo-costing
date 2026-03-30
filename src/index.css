@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bakery-1: #FFFCF7; /* Almost white cream for background */
+  --color-bakery-2: #FFD7A3; /* Brighter light orange for accents */
+  --color-bakery-3: #E6A05E; /* More distinct golden brown */
+  --color-bakery-4: #2A0C01; /* Darker espresso for text */
+  --color-bakery-5: #8C3110; /* Vibrant mahogany */
+
+  --color-primary: var(--color-bakery-3);
+  --color-secondary: var(--color-bakery-2);
+  --color-accent: var(--color-bakery-5);
+  --color-background: var(--color-bakery-1);
+  --color-foreground: var(--color-bakery-4);
+}

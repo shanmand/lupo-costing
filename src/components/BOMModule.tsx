@@ -132,7 +132,7 @@ export const BOMModule = () => {
         </div>
         <button 
           onClick={() => setIsAdding(true)}
-          className="bg-[#141414] text-[#E4E3E0] px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+          className="bg-bakery-4 text-bakery-1 px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
         >
           <Plus size={14} /> Create New BOM
         </button>
@@ -140,9 +140,9 @@ export const BOMModule = () => {
 
       <div className="grid grid-cols-1 gap-6">
         {boms.map(bom => (
-          <div key={bom.id} className="bg-white border border-[#141414] p-8 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] flex justify-between items-center">
+          <div key={bom.id} className="bg-bakery-1 border border-bakery-4 p-8 shadow-[4px_4px_0px_0px_var(--color-bakery-4)] flex justify-between items-center">
             <div className="flex gap-8 items-center">
-              <div className="w-12 h-12 bg-[#141414] text-[#E4E3E0] flex items-center justify-center rounded-sm">
+              <div className="w-12 h-12 bg-bakery-4 text-bakery-1 flex items-center justify-center rounded-sm">
                 <Layers size={24} />
               </div>
               <div>
@@ -161,13 +161,13 @@ export const BOMModule = () => {
                   const items = itemsSnap.docs.map(d => d.data());
                   setEditingBOM({ ...bom, items });
                 }}
-                className="text-[10px] uppercase tracking-widest font-bold border-b border-[#141414]"
+                className="text-[10px] uppercase tracking-widest font-bold border-b border-bakery-4"
               >
                 Edit
               </button>
               <button 
                 onClick={() => handleDeleteBOM(bom.id)}
-                className="text-[10px] uppercase tracking-widest font-bold border-b border-[#141414] text-red-600"
+                className="text-[10px] uppercase tracking-widest font-bold border-b border-bakery-4 text-red-600"
               >
                 Delete
               </button>
@@ -177,11 +177,11 @@ export const BOMModule = () => {
       </div>
 
       {editingBOM && (
-        <div className="fixed inset-0 bg-[#141414] bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8 overflow-y-auto">
-          <div className="bg-[#E4E3E0] border-2 border-[#141414] p-12 max-w-4xl w-full shadow-[16px_16px_0px_0px_rgba(20,20,20,1)] my-8">
+        <div className="fixed inset-0 bg-bakery-4 bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8 overflow-y-auto">
+          <div className="bg-bakery-1 border-2 border-bakery-4 p-12 max-w-4xl w-full shadow-[16px_16px_0px_0px_var(--color-bakery-4)] my-8">
             <div className="flex justify-between items-start mb-8">
               <h3 className="text-3xl font-serif italic tracking-tight">Edit Recipe (BOM)</h3>
-              <button onClick={() => setEditingBOM(null)} className="p-2 hover:bg-white border border-[#141414]">
+              <button onClick={() => setEditingBOM(null)} className="p-2 hover:bg-white border border-bakery-4">
                 <X size={20} />
               </button>
             </div>
@@ -192,7 +192,7 @@ export const BOMModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Target SKU / Product ID</label>
                   <input 
                     type="text" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={editingBOM.target_id}
                     onChange={e => setEditingBOM({...editingBOM, target_id: e.target.value})}
                   />
@@ -201,7 +201,7 @@ export const BOMModule = () => {
                   <div>
                     <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Type</label>
                     <select 
-                      className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                      className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                       value={editingBOM.target_type}
                       onChange={e => setEditingBOM({...editingBOM, target_type: e.target.value})}
                     >
@@ -213,7 +213,7 @@ export const BOMModule = () => {
                     <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Version</label>
                     <input 
                       type="number" 
-                      className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                      className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                       value={editingBOM.version}
                       onChange={e => setEditingBOM({...editingBOM, version: parseInt(e.target.value)})}
                     />
@@ -226,7 +226,7 @@ export const BOMModule = () => {
                     <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Batch Size</label>
                     <input 
                       type="number" 
-                      className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                      className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                       value={editingBOM.batch_size}
                       onChange={e => setEditingBOM({...editingBOM, batch_size: parseFloat(e.target.value)})}
                     />
@@ -235,7 +235,7 @@ export const BOMModule = () => {
                     <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Exp. Yield</label>
                     <input 
                       type="number" 
-                      className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                      className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                       value={editingBOM.expected_yield}
                       onChange={e => setEditingBOM({...editingBOM, expected_yield: parseFloat(e.target.value)})}
                     />
@@ -244,7 +244,7 @@ export const BOMModule = () => {
                 <div>
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Status</label>
                   <select 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={editingBOM.status}
                     onChange={e => setEditingBOM({...editingBOM, status: e.target.value})}
                   >
@@ -256,8 +256,8 @@ export const BOMModule = () => {
               </div>
             </div>
 
-            <div className="border border-[#141414] mb-12">
-              <div className="bg-[#141414] text-[#E4E3E0] p-4 text-[10px] uppercase tracking-widest font-bold grid grid-cols-[2fr_1fr_1fr_50px]">
+            <div className="border border-bakery-4 mb-12">
+              <div className="bg-bakery-4 text-bakery-1 p-4 text-[10px] uppercase tracking-widest font-bold grid grid-cols-[2fr_1fr_1fr_50px]">
                 <div>Ingredient</div>
                 <div>Qty</div>
                 <div>UOM</div>
@@ -265,7 +265,7 @@ export const BOMModule = () => {
               </div>
               <div className="max-h-[200px] overflow-y-auto">
                 {editingBOM.items.map((item: any, idx: number) => (
-                  <div key={idx} className="p-4 border-b border-[#141414] border-opacity-10 grid grid-cols-[2fr_1fr_1fr_50px] items-center font-mono text-xs">
+                  <div key={idx} className="p-4 border-b border-bakery-4 border-opacity-10 grid grid-cols-[2fr_1fr_1fr_50px] items-center font-mono text-xs">
                     <div>{materials.find(m => m.id === item.material_id)?.name}</div>
                     <div>{item.quantity}</div>
                     <div>{item.uom}</div>
@@ -278,9 +278,9 @@ export const BOMModule = () => {
                   </div>
                 ))}
               </div>
-              <div className="p-4 bg-[#F0EFEA] grid grid-cols-[2fr_1fr_1fr_50px] gap-4">
+              <div className="p-4 bg-bakery-1 border-t border-bakery-4 border-opacity-10 grid grid-cols-[2fr_1fr_1fr_50px] gap-4">
                 <select 
-                  className="bg-transparent border-b border-[#141414] py-1 font-mono text-xs focus:outline-none"
+                  className="bg-transparent border-b border-bakery-4 py-1 font-mono text-xs focus:outline-none"
                   onChange={(e) => {
                     const mat = materials.find(m => m.id === e.target.value);
                     if (mat) {
@@ -303,13 +303,13 @@ export const BOMModule = () => {
             <div className="flex gap-4">
               <button 
                 onClick={handleUpdateBOM}
-                className="flex-1 bg-[#141414] text-[#E4E3E0] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
+                className="flex-1 bg-bakery-4 text-bakery-1 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
               >
                 UPDATE RECIPE
               </button>
               <button 
                 onClick={() => setEditingBOM(null)}
-                className="flex-1 border border-[#141414] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
+                className="flex-1 border border-bakery-4 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
               >
                 CANCEL
               </button>
@@ -318,8 +318,8 @@ export const BOMModule = () => {
         </div>
       )}
       {isAdding && (
-        <div className="fixed inset-0 bg-[#141414] bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
-          <div className="bg-[#E4E3E0] border-2 border-[#141414] p-12 max-w-2xl w-full shadow-[16px_16px_0px_0px_rgba(20,20,20,1)] max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-bakery-4 bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
+          <div className="bg-bakery-1 border-2 border-bakery-4 p-12 max-w-2xl w-full shadow-[16px_16px_0px_0px_var(--color-bakery-4)] max-h-[90vh] overflow-y-auto">
             <h3 className="text-3xl font-serif italic mb-8 tracking-tight">New BOM Specification</h3>
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-6">
@@ -327,7 +327,7 @@ export const BOMModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Target Product Name</label>
                   <input 
                     type="text" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={newBOM.target_id}
                     onChange={e => setNewBOM({...newBOM, target_id: e.target.value})}
                     placeholder="e.g. Standard White Loaf"
@@ -337,18 +337,18 @@ export const BOMModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Batch Size</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={newBOM.batch_size}
                     onChange={e => setNewBOM({...newBOM, batch_size: parseFloat(e.target.value)})}
                   />
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-[#141414] border-opacity-10">
+              <div className="pt-8 border-t border-bakery-4 border-opacity-10">
                 <h4 className="text-[10px] uppercase tracking-[0.4em] font-bold mb-4">Ingredients / Materials</h4>
                 <div className="space-y-2 mb-6">
                   {bomItems.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-white border border-[#141414] text-xs font-mono">
+                    <div key={idx} className="flex items-center justify-between p-3 bg-bakery-1 border border-bakery-4 text-xs font-mono">
                       <div className="flex items-center gap-4">
                         <span className="font-bold">{item.name}</span>
                         <span className="opacity-40">{item.uom}</span>
@@ -356,7 +356,7 @@ export const BOMModule = () => {
                       <div className="flex items-center gap-4">
                         <input 
                           type="number" 
-                          className="w-20 bg-transparent border-b border-[#141414] text-right focus:outline-none"
+                          className="w-20 bg-transparent border-b border-bakery-4 text-right focus:outline-none"
                           value={item.quantity}
                           onChange={e => {
                             const updated = [...bomItems];
@@ -371,7 +371,7 @@ export const BOMModule = () => {
                 </div>
                 <div className="flex gap-2">
                   <select 
-                    className="flex-1 bg-transparent border border-[#141414] p-2 text-xs font-mono focus:outline-none"
+                    className="flex-1 bg-transparent border border-bakery-4 p-2 text-xs font-mono focus:outline-none"
                     onChange={e => addItemToBOM(e.target.value)}
                     value=""
                   >
@@ -386,13 +386,13 @@ export const BOMModule = () => {
             <div className="flex gap-4 mt-12">
               <button 
                 onClick={handleAddBOM}
-                className="flex-1 bg-[#141414] text-[#E4E3E0] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
+                className="flex-1 bg-bakery-4 text-bakery-1 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
               >
                 SAVE BOM VERSION
               </button>
               <button 
                 onClick={() => setIsAdding(false)}
-                className="flex-1 border border-[#141414] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
+                className="flex-1 border border-bakery-4 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
               >
                 CANCEL
               </button>

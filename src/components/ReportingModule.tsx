@@ -93,7 +93,7 @@ export const ReportingModule = () => {
         </div>
         <div className="flex gap-4">
           <select 
-            className="bg-white border border-[#141414] px-4 py-2 text-[10px] uppercase tracking-widest font-bold focus:outline-none"
+            className="bg-bakery-1 border border-bakery-4 px-4 py-2 text-[10px] uppercase tracking-widest font-bold focus:outline-none"
             value={selectedBranch}
             onChange={e => setSelectedBranch(e.target.value)}
           >
@@ -102,35 +102,35 @@ export const ReportingModule = () => {
               <option key={b.id} value={b.id}>{b.name}</option>
             ))}
           </select>
-          <button className="bg-[#141414] text-[#E4E3E0] px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2">
+          <button className="bg-bakery-4 text-bakery-1 px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2">
             <Download size={14} /> Export PDF Report
           </button>
         </div>
       </header>
 
       <div className="grid grid-cols-3 gap-8">
-        <div className="bg-white border border-[#141414] p-8">
+        <div className="bg-bakery-1 border border-bakery-4 p-8">
           <div className="flex items-center gap-2 mb-6 opacity-40">
             <PieChart size={16} />
             <div className="text-[10px] uppercase tracking-widest font-bold">Cost Breakdown</div>
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between items-center pb-2 border-b border-[#141414] border-opacity-10">
+            <div className="flex justify-between items-center pb-2 border-b border-bakery-4 border-opacity-10">
               <span className="text-xs opacity-60">Direct Materials</span>
               <span className="font-mono font-bold">{materialPct.toFixed(1)}%</span>
             </div>
-            <div className="flex justify-between items-center pb-2 border-b border-[#141414] border-opacity-10">
+            <div className="flex justify-between items-center pb-2 border-b border-bakery-4 border-opacity-10">
               <span className="text-xs opacity-60">Direct Labour</span>
               <span className="font-mono font-bold">{labourPct.toFixed(1)}%</span>
             </div>
-            <div className="flex justify-between items-center pb-2 border-b border-[#141414] border-opacity-10">
+            <div className="flex justify-between items-center pb-2 border-b border-bakery-4 border-opacity-10">
               <span className="text-xs opacity-60">Overheads</span>
               <span className="font-mono font-bold">{overheadPct.toFixed(1)}%</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white border border-[#141414] p-8">
+        <div className="bg-bakery-1 border border-bakery-4 p-8">
           <div className="flex items-center gap-2 mb-6 opacity-40">
             <TrendingUp size={16} />
             <div className="text-[10px] uppercase tracking-widest font-bold">Efficiency Metrics</div>
@@ -141,8 +141,8 @@ export const ReportingModule = () => {
                 <span>Yield Efficiency</span>
                 <span>94.2%</span>
               </div>
-              <div className="h-1 bg-[#F0EFEA] w-full">
-                <div className="h-full bg-[#141414] w-[94.2%]" />
+              <div className="h-1 bg-bakery-4 bg-opacity-10 w-full">
+                <div className="h-full bg-bakery-4 w-[94.2%]" />
               </div>
             </div>
             <div>
@@ -150,24 +150,24 @@ export const ReportingModule = () => {
                 <span>Labour Efficiency</span>
                 <span>88.5%</span>
               </div>
-              <div className="h-1 bg-[#F0EFEA] w-full">
-                <div className="h-full bg-[#141414] w-[88.5%]" />
+              <div className="h-1 bg-bakery-4 bg-opacity-10 w-full">
+                <div className="h-full bg-bakery-4 w-[88.5%]" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#141414] text-[#E4E3E0] p-8">
+        <div className="bg-bakery-4 text-bakery-1 p-8">
           <div className="flex items-center gap-2 mb-6 opacity-40">
             <AlertTriangle size={16} />
             <div className="text-[10px] uppercase tracking-widest font-bold">Variance Alerts</div>
           </div>
           <div className="space-y-4">
-            <div className="p-3 border border-[#E4E3E0] border-opacity-20 bg-white bg-opacity-5">
+            <div className="p-3 border border-bakery-1 border-opacity-20 bg-bakery-1 bg-opacity-5">
               <div className="text-[10px] font-bold text-red-400 mb-1">ABNORMAL WASTE ALERT</div>
               <p className="text-[10px] opacity-60 leading-relaxed">R {totalAbnormalWaste.toFixed(2)} in abnormal waste detected this period.</p>
             </div>
-            <div className="p-3 border border-[#E4E3E0] border-opacity-20 bg-white bg-opacity-5">
+            <div className="p-3 border border-bakery-1 border-opacity-20 bg-bakery-1 bg-opacity-5">
               <div className="text-[10px] font-bold text-yellow-400 mb-1">UNIT COST VARIANCE</div>
               <p className="text-[10px] opacity-60 leading-relaxed">Average unit cost is R {avgUnitCost.toFixed(2)}. Check against standard.</p>
             </div>
@@ -175,10 +175,10 @@ export const ReportingModule = () => {
         </div>
       </div>
 
-      <div className="bg-white border border-[#141414] p-12">
+      <div className="bg-bakery-1 border border-bakery-4 p-12">
         <h3 className="text-2xl font-serif italic mb-8 tracking-tight">Batch Cost Analysis (IFRS IAS 2)</h3>
-        <div className="border border-[#141414]">
-          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] bg-[#141414] text-[#E4E3E0] p-4 text-[10px] uppercase tracking-widest font-bold">
+        <div className="border border-bakery-4">
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] bg-bakery-4 text-bakery-1 p-4 text-[10px] uppercase tracking-widest font-bold">
             <div>Batch ID</div>
             <div>Inventory Value</div>
             <div>Normal Waste</div>
@@ -188,8 +188,8 @@ export const ReportingModule = () => {
           </div>
           {filteredCosts.map((c, idx) => (
             <div key={c.id} className={cn(
-              "grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] p-4 border-b border-[#141414] last:border-0 hover:bg-[#F0EFEA] transition-colors items-center",
-              idx % 2 === 0 ? 'bg-transparent' : 'bg-[#F9F8F6]'
+              "grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] p-4 border-b border-bakery-4 last:border-0 hover:bg-bakery-4 hover:bg-opacity-5 transition-colors items-center",
+              idx % 2 === 0 ? 'bg-transparent' : 'bg-bakery-4 bg-opacity-[0.02]'
             )}>
               <div className="text-xs font-mono font-bold">{c.batch_id.slice(0, 8)}</div>
               <div className="text-xs font-mono">R {c.total_inventory_value.toFixed(2)}</div>

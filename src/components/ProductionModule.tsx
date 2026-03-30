@@ -236,7 +236,7 @@ export const ProductionModule = () => {
         </div>
         <button 
           onClick={() => setIsStarting(true)}
-          className="bg-[#141414] text-[#E4E3E0] px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+          className="bg-bakery-4 text-bakery-1 px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
         >
           <Plus size={14} /> Start New Batch
         </button>
@@ -248,10 +248,10 @@ export const ProductionModule = () => {
           const nextStage = PRODUCTION_STAGES[PRODUCTION_STAGES.findIndex(s => s.id === run.current_stage) + 1];
           
           return (
-            <div key={run.id} className="bg-white border-2 border-[#141414] p-8 shadow-[8px_8px_0px_0px_rgba(20,20,20,1)]">
+            <div key={run.id} className="bg-bakery-1 border-2 border-bakery-4 p-8 shadow-[8px_8px_0px_0px_var(--color-bakery-4)]">
               <div className="flex justify-between items-start mb-8">
                 <div className="flex gap-8 items-center">
-                  <div className="w-12 h-12 bg-[#141414] text-[#E4E3E0] flex items-center justify-center rounded-full animate-pulse">
+                  <div className="w-12 h-12 bg-bakery-4 text-bakery-1 flex items-center justify-center rounded-full animate-pulse">
                     <Activity size={24} />
                   </div>
                   <div>
@@ -272,7 +272,7 @@ export const ProductionModule = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-40 mb-1">Current Stage</div>
-                  <div className="text-xl font-serif italic text-[#141414]">{currentStage?.name}</div>
+                  <div className="text-xl font-serif italic text-bakery-4">{currentStage?.name}</div>
                 </div>
               </div>
 
@@ -288,21 +288,21 @@ export const ProductionModule = () => {
                       )}>
                         <div className={cn(
                           "w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] font-bold mb-2",
-                          isCurrent ? "border-[#141414] bg-[#141414] text-white" : "border-[#141414]"
+                          isCurrent ? "border-bakery-4 bg-bakery-4 text-bakery-1" : "border-bakery-4"
                         )}>
                           {isPast ? <CheckCircle2 size={12} /> : idx + 1}
                         </div>
                         <div className="text-[8px] uppercase tracking-tighter font-bold text-center whitespace-nowrap">{stage.name}</div>
                       </div>
                       {idx < PRODUCTION_STAGES.length - 1 && (
-                        <div className="h-[2px] w-8 bg-[#141414] opacity-10 mt-[-12px]" />
+                        <div className="h-[2px] w-8 bg-bakery-4 opacity-10 mt-[-12px]" />
                       )}
                     </React.Fragment>
                   );
                 })}
               </div>
 
-              <div className="flex justify-between items-center pt-6 border-t border-[#141414] border-opacity-10">
+              <div className="flex justify-between items-center pt-6 border-t border-bakery-4 border-opacity-10">
                 <div className="flex gap-8">
                   <div>
                     <div className="text-[8px] uppercase tracking-widest font-bold opacity-40 mb-1">Material Cost</div>
@@ -329,7 +329,7 @@ export const ProductionModule = () => {
                     });
                     setIsProgressing(run.id);
                   }}
-                  className="bg-[#141414] text-[#E4E3E0] px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+                  className="bg-bakery-4 text-bakery-1 px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
                 >
                   {nextStage ? `PROGRESS TO ${nextStage.name.toUpperCase()}` : 'COMPLETE PRODUCTION'}
                 </button>
@@ -339,7 +339,7 @@ export const ProductionModule = () => {
         })}
 
         {runs.filter(r => r.status === 'in_progress').length === 0 && (
-          <div className="h-48 border-2 border-dashed border-[#141414] opacity-20 flex items-center justify-center">
+          <div className="h-48 border-2 border-dashed border-bakery-4 opacity-20 flex items-center justify-center">
             <div className="text-[10px] uppercase tracking-widest font-bold">No active production runs</div>
           </div>
         )}
@@ -347,14 +347,14 @@ export const ProductionModule = () => {
 
       {/* Start Run Modal */}
       {isStarting && (
-        <div className="fixed inset-0 bg-[#141414] bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
-          <div className="bg-[#E4E3E0] border-2 border-[#141414] p-12 max-w-lg w-full shadow-[16px_16px_0px_0px_rgba(20,20,20,1)]">
+        <div className="fixed inset-0 bg-bakery-4 bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
+          <div className="bg-bakery-1 border-2 border-bakery-4 p-12 max-w-lg w-full shadow-[16px_16px_0px_0px_var(--color-bakery-4)]">
             <h3 className="text-3xl font-serif italic mb-8 tracking-tight">Initiate Production</h3>
             <div className="space-y-6">
               <div>
                 <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Select Branch</label>
                 <select 
-                  className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                  className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                   value={newRun.branch_id}
                   onChange={e => setNewRun({...newRun, branch_id: e.target.value})}
                 >
@@ -367,7 +367,7 @@ export const ProductionModule = () => {
               <div>
                 <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Select BOM / Product</label>
                 <select 
-                  className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                  className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                   value={newRun.bom_id}
                   onChange={e => setNewRun({...newRun, bom_id: e.target.value})}
                 >
@@ -381,7 +381,7 @@ export const ProductionModule = () => {
                 <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Target Quantity</label>
                 <input 
                   type="number" 
-                  className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                  className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                   value={newRun.target_quantity}
                   onChange={e => setNewRun({...newRun, target_quantity: parseFloat(e.target.value)})}
                 />
@@ -390,13 +390,13 @@ export const ProductionModule = () => {
             <div className="flex gap-4 mt-12">
               <button 
                 onClick={startRun}
-                className="flex-1 bg-[#141414] text-[#E4E3E0] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
+                className="flex-1 bg-bakery-4 text-bakery-1 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
               >
                 START BATCH
               </button>
               <button 
                 onClick={() => setIsStarting(false)}
-                className="flex-1 border border-[#141414] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
+                className="flex-1 border border-bakery-4 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
               >
                 CANCEL
               </button>
@@ -407,8 +407,8 @@ export const ProductionModule = () => {
 
       {/* Progress Stage Modal */}
       {isProgressing && (
-        <div className="fixed inset-0 bg-[#141414] bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
-          <div className="bg-[#E4E3E0] border-2 border-[#141414] p-12 max-w-lg w-full shadow-[16px_16px_0px_0px_rgba(20,20,20,1)]">
+        <div className="fixed inset-0 bg-bakery-4 bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center p-8">
+          <div className="bg-bakery-1 border-2 border-bakery-4 p-12 max-w-lg w-full shadow-[16px_16px_0px_0px_var(--color-bakery-4)]">
             <h3 className="text-3xl font-serif italic mb-2 tracking-tight">Stage Completion</h3>
             <p className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-8">
               Finalizing {PRODUCTION_STAGES.find(s => s.id === runs.find(r => r.id === isProgressing)?.current_stage)?.name}
@@ -420,7 +420,7 @@ export const ProductionModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Material Cost (R)</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.material_cost}
                     onChange={e => setStageData({...stageData, material_cost: parseFloat(e.target.value)})}
                   />
@@ -429,7 +429,7 @@ export const ProductionModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Overhead Cost (R)</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.overhead_cost}
                     onChange={e => setStageData({...stageData, overhead_cost: parseFloat(e.target.value)})}
                   />
@@ -439,7 +439,7 @@ export const ProductionModule = () => {
                 <div>
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Labour Category</label>
                   <select 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.labour_category_id}
                     onChange={e => setStageData({...stageData, labour_category_id: e.target.value})}
                   >
@@ -453,18 +453,18 @@ export const ProductionModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Labour Hours</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.labour_hours}
                     onChange={e => setStageData({...stageData, labour_hours: parseFloat(e.target.value)})}
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-6 pt-4 border-t border-[#141414] border-opacity-10">
+              <div className="grid grid-cols-2 gap-6 pt-4 border-t border-bakery-4 border-opacity-10">
                 <div>
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Actual Yield</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.actual_quantity}
                     onChange={e => setStageData({...stageData, actual_quantity: parseFloat(e.target.value)})}
                   />
@@ -473,7 +473,7 @@ export const ProductionModule = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold opacity-40 mb-2 block">Waste Quantity</label>
                   <input 
                     type="number" 
-                    className="w-full bg-transparent border-b border-[#141414] py-2 font-mono text-sm focus:outline-none"
+                    className="w-full bg-transparent border-b border-bakery-4 py-2 font-mono text-sm focus:outline-none"
                     value={stageData.waste_quantity}
                     onChange={e => setStageData({...stageData, waste_quantity: parseFloat(e.target.value)})}
                   />
@@ -484,13 +484,13 @@ export const ProductionModule = () => {
             <div className="flex gap-4 mt-12">
               <button 
                 onClick={() => progressStage(isProgressing)}
-                className="flex-1 bg-[#141414] text-[#E4E3E0] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
+                className="flex-1 bg-bakery-4 text-bakery-1 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all"
               >
                 CONFIRM & PROGRESS
               </button>
               <button 
                 onClick={() => setIsProgressing(null)}
-                className="flex-1 border border-[#141414] py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
+                className="flex-1 border border-bakery-4 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
               >
                 CANCEL
               </button>
@@ -501,8 +501,8 @@ export const ProductionModule = () => {
 
       <div className="mt-16">
         <h3 className="text-xl font-serif italic mb-6 tracking-tight">Production History</h3>
-        <div className="border border-[#141414] bg-white">
-          <div className="grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] bg-[#141414] text-[#E4E3E0] p-4 text-[10px] uppercase tracking-widest font-bold">
+        <div className="border border-bakery-4 bg-bakery-1">
+          <div className="grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] bg-bakery-4 text-bakery-1 p-4 text-[10px] uppercase tracking-widest font-bold">
             <div>Date</div>
             <div>Product</div>
             <div>Actual Qty</div>
@@ -511,8 +511,8 @@ export const ProductionModule = () => {
           </div>
           {runs.filter(r => r.status === 'completed').slice(0, 10).map((run, idx) => (
             <div key={run.id} className={cn(
-              "grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] p-4 border-b border-[#141414] last:border-0 hover:bg-[#F0EFEA] transition-colors items-center",
-              idx % 2 === 0 ? 'bg-transparent' : 'bg-[#F9F8F6]'
+              "grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] p-4 border-b border-bakery-4 last:border-0 hover:bg-bakery-4 hover:bg-opacity-5 transition-colors items-center",
+              idx % 2 === 0 ? 'bg-transparent' : 'bg-bakery-4 bg-opacity-[0.02]'
             )}>
               <div className="text-xs font-mono">{format(run.start_time.toDate(), 'dd/MM HH:mm')}</div>
               <div className="text-xs font-mono font-bold">{run.bom_name}</div>
