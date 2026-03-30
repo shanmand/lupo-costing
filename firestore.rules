@@ -15,7 +15,7 @@ service cloud.firestore {
 
     function isAdmin() {
       return isAuthenticated() &&
-        (request.auth.token.email == "shanmand@gmail.com" ||
+        ((request.auth.token.email == "shanmand@gmail.com" && request.auth.token.email_verified == true) ||
          (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
           get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
     }
@@ -50,7 +50,7 @@ service cloud.firestore {
       return hasRequiredFields(['name', 'type', 'uom']) &&
              isValidString('name', 1, 100) &&
              isValidString('uom', 1, 20) &&
-             request.resource.data.type in ['ingredient', 'packaging'];
+             request.resource.data.type in ['ingredient', 'packaging', 'topping'];
     }
 
     function isValidBOMHeader() {

@@ -1015,22 +1015,29 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
-      if (u) {
-        // Sync user profile
-        const userRef = doc(db, 'users', u.uid);
-        const userSnap = await getDoc(userRef);
-        if (!userSnap.exists()) {
-          await setDoc(userRef, {
-            email: u.email,
-            displayName: u.displayName,
-            photoURL: u.photoURL,
-            role: u.email === 'shanmand@gmail.com' ? 'admin' : 'user',
-            createdAt: Timestamp.now()
-          });
+      try {
+        if (u) {
+          // Sync user profile
+          const userRef = doc(db, 'users', u.uid);
+          const userSnap = await getDoc(userRef);
+          if (!userSnap.exists()) {
+            await setDoc(userRef, {
+              email: u.email || '',
+              displayName: u.displayName || 'Anonymous',
+              photoURL: u.photoURL || '',
+              role: u.email === 'shanmand@gmail.com' ? 'admin' : 'user',
+              createdAt: Timestamp.now()
+            });
+          }
         }
+      } catch (error) {
+        console.error('Auth sync failed:', error);
+        // We still want to set the user and stop loading even if sync fails
+        // but maybe the user won't have the correct role in the app state
+      } finally {
+        setUser(u);
+        setLoading(false);
       }
-      setUser(u);
-      setLoading(false);
     });
     return unsubscribe;
   }, []);
