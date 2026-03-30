@@ -1,0 +1,163 @@
+{
+  "entities": {
+    "Branch": {
+      "title": "Branch",
+      "description": "A physical bakery location.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "is_active": { "type": "boolean" }
+      },
+      "required": ["name"]
+    },
+    "Material": {
+      "title": "Material",
+      "description": "Raw materials or packaging items.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["ingredient", "packaging", "topping"] },
+        "uom": { "type": "string" },
+        "standard_cost": { "type": "number" },
+        "price_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "price": { "type": "number" },
+              "effective_date": { "type": "string", "format": "date-time" },
+              "changed_by": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["name", "type", "uom"]
+    },
+    "BOMHeader": {
+      "title": "BOM Header",
+      "description": "Version-controlled BOM header.",
+      "type": "object",
+      "properties": {
+        "target_id": { "type": "string" },
+        "target_type": { "type": "string", "enum": ["semi_finished", "sku"] },
+        "version": { "type": "integer" },
+        "status": { "type": "string", "enum": ["draft", "active", "archived"] },
+        "batch_size": { "type": "number" },
+        "expected_yield": { "type": "number" }
+      },
+      "required": ["target_id", "target_type", "version", "status"]
+    },
+    "Batch": {
+      "title": "Batch",
+      "description": "A specific production batch or inventory lot.",
+      "type": "object",
+      "properties": {
+        "item_id": { "type": "string" },
+        "item_type": { "type": "string", "enum": ["material", "semi_finished", "sku"] },
+        "branch_id": { "type": "string" },
+        "quantity": { "type": "number" },
+        "expiry_date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["available", "quarantined", "consumed", "expired"] }
+      },
+      "required": ["item_id", "item_type", "branch_id", "quantity"]
+    },
+    "ProductionRecord": {
+      "title": "Production Record",
+      "description": "A record of a production run with multi-stage tracking.",
+      "type": "object",
+      "properties": {
+        "batch_id": { "type": "string" },
+        "bom_id": { "type": "string" },
+        "branch_id": { "type": "string" },
+        "start_time": { "type": "string", "format": "date-time" },
+        "end_time": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["planned", "in_progress", "completed", "cancelled"] },
+        "current_stage": { "type": "string" },
+        "target_quantity": { "type": "number" },
+        "actual_quantity": { "type": "number" },
+        "total_material_cost": { "type": "number" },
+        "total_labour_cost": { "type": "number" },
+        "total_overhead_cost": { "type": "number" },
+        "stage_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stage": { "type": "string" },
+              "entered_at": { "type": "string", "format": "date-time" },
+              "completed_at": { "type": "string", "format": "date-time" },
+              "data": { "type": "object" }
+            }
+          }
+        }
+      },
+      "required": ["batch_id", "branch_id", "status"]
+    },
+    "BatchCostSummary": {
+      "title": "Batch Cost Summary",
+      "description": "IFRS-compliant cost summary for a batch.",
+      "type": "object",
+      "properties": {
+        "batch_id": { "type": "string" },
+        "direct_material_cost": { "type": "number" },
+        "direct_labour_cost": { "type": "number" },
+        "variable_overhead_cost": { "type": "number" },
+        "fixed_overhead_cost": { "type": "number" },
+        "normal_waste_cost": { "type": "number" },
+        "abnormal_waste_cost": { "type": "number" },
+        "total_inventory_value": { "type": "number" },
+        "unit_cost": { "type": "number" }
+      },
+      "required": ["batch_id", "total_inventory_value"]
+    },
+    "BOMItem": {
+      "title": "BOM Item",
+      "description": "An ingredient in a BOM.",
+      "type": "object",
+      "properties": {
+        "bom_header_id": { "type": "string" },
+        "material_id": { "type": "string" },
+        "name": { "type": "string" },
+        "quantity": { "type": "number" },
+        "uom": { "type": "string" }
+      },
+      "required": ["bom_header_id", "material_id", "quantity"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Application user profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    },
+    "LabourCategory": {
+      "title": "Labour Category",
+      "description": "Defines a labour role and its hourly rate",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "hourly_rate": { "type": "number" },
+        "description": { "type": "string" }
+      },
+      "required": ["name", "hourly_rate"]
+    }
+  },
+  "firestore": {
+    "/branches/{branchId}": { "schema": "Branch", "description": "Branch locations" },
+    "/materials/{materialId}": { "schema": "Material", "description": "Raw materials" },
+    "/bom_headers/{bomId}": { "schema": "BOMHeader", "description": "BOM definitions" },
+    "/bom_items/{itemId}": { "schema": "BOMItem", "description": "BOM line items" },
+    "/batches/{batchId}": { "schema": "Batch", "description": "Inventory batches" },
+    "/production_records/{prodId}": { "schema": "ProductionRecord", "description": "Production runs" },
+    "/batch_cost_summaries/{costId}": { "schema": "BatchCostSummary", "description": "Costing data" },
+    "/labour_categories/{catId}": { "schema": "LabourCategory", "description": "Labour rates" },
+    "/users/{userId}": { "schema": "User", "description": "User profiles" }
+  }
+}

@@ -1,0 +1,160 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (request.auth.token.email == "shanmand@gmail.com" ||
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function isValidString(field, min, max) {
+      return request.resource.data[field] is string && 
+             request.resource.data[field].size() >= min && 
+             request.resource.data[field].size() <= max;
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser() {
+      return hasRequiredFields(['email', 'role']) &&
+             isValidString('email', 5, 100) &&
+             request.resource.data.role in ['admin', 'user'];
+    }
+
+    function isValidBranch() {
+      return hasRequiredFields(['name']) &&
+             isValidString('name', 1, 100) &&
+             (!('location' in request.resource.data) || isValidString('location', 0, 200));
+    }
+
+    function isValidMaterial() {
+      return hasRequiredFields(['name', 'type', 'uom']) &&
+             isValidString('name', 1, 100) &&
+             isValidString('uom', 1, 20) &&
+             request.resource.data.type in ['ingredient', 'packaging'];
+    }
+
+    function isValidBOMHeader() {
+      return hasRequiredFields(['target_id', 'target_type', 'version', 'status']) &&
+             isValidString('target_id', 1, 100) &&
+             request.resource.data.target_type in ['semi_finished', 'sku'] &&
+             request.resource.data.status in ['draft', 'active', 'archived'];
+    }
+
+    function isValidBOMItem() {
+      return hasRequiredFields(['bom_header_id', 'material_id', 'quantity']) &&
+             isValidString('bom_header_id', 1, 50) &&
+             isValidString('material_id', 1, 50) &&
+             request.resource.data.quantity is number;
+    }
+
+    function isValidBatch() {
+      return hasRequiredFields(['item_id', 'item_type', 'branch_id', 'quantity']) &&
+             isValidString('item_id', 1, 50) &&
+             isValidString('branch_id', 1, 50) &&
+             request.resource.data.item_type in ['material', 'semi_finished', 'sku'] &&
+             request.resource.data.quantity is number;
+    }
+
+    function isValidProductionRecord() {
+      return hasRequiredFields(['batch_id', 'branch_id', 'status', 'current_stage', 'target_quantity']) &&
+             isValidString('batch_id', 1, 50) &&
+             isValidString('branch_id', 1, 50) &&
+             request.resource.data.status in ['planned', 'in_progress', 'completed', 'cancelled'] &&
+             request.resource.data.target_quantity is number &&
+             request.resource.data.target_quantity >= 0;
+    }
+
+    function isValidCostSummary() {
+      return hasRequiredFields(['batch_id', 'total_inventory_value', 'unit_cost']) &&
+             isValidString('batch_id', 1, 50) &&
+             request.resource.data.total_inventory_value is number &&
+             request.resource.data.unit_cost is number;
+    }
+
+    function isValidLabourCategory() {
+      return hasRequiredFields(['name', 'hourly_rate']) &&
+             isValidString('name', 1, 100) &&
+             request.resource.data.hourly_rate is number &&
+             request.resource.data.hourly_rate >= 0;
+    }
+
+    // ===============================================================
+    // Match Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && isValidUser();
+      allow update: if (isOwner(userId) && isValidUser() && request.resource.data.role == resource.data.role) || isAdmin();
+    }
+
+    match /branches/{branchId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidBranch();
+      allow update: if isAdmin() && isValidBranch();
+    }
+
+    match /materials/{materialId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidMaterial();
+      allow update: if isAdmin() && isValidMaterial();
+    }
+
+    match /bom_headers/{bomId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidBOMHeader();
+      allow update: if isAdmin() && isValidBOMHeader();
+    }
+
+    match /bom_items/{itemId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidBOMItem();
+      allow update: if isAdmin() && isValidBOMItem();
+    }
+
+    match /batches/{batchId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidBatch();
+      allow update: if isAuthenticated() && isValidBatch();
+    }
+
+    match /production_records/{prodId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidProductionRecord();
+      allow update: if isAuthenticated() && isValidProductionRecord();
+    }
+
+    match /batch_cost_summaries/{costId} {
+      allow read: if isAuthenticated();
+      allow create: if (isAdmin() || isAuthenticated()) && isValidCostSummary();
+      allow update: if isAdmin() && isValidCostSummary();
+    }
+
+    match /labour_categories/{catId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidLabourCategory();
+      allow update: if isAdmin() && isValidLabourCategory();
+      allow delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Bakery Costing Schema Designer",
+  "description": "A comprehensive relational database schema for bakery manufacturing, including batch tracking, SKU management, and multi-branch logistics.",
+  "requestFramePermissions": []
+}
